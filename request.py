@@ -42,7 +42,7 @@ import requests#匯入requests模組
 # print(r.status_code == requests.codes.ok)#TRUE
 # r = requests.get("https://www.youtube.com/404")
 # print(r.status_code)#取得回應狀態碼是404
-# print(r.status_code == requests.codes.ok)#FALSE
+# print(r.status_code == requests.codes.all_good)#FALSE
 
 #取得回應狀態碼進一步資訊
 # r = requests.get("https://www.flag.com.tw/")
@@ -63,9 +63,46 @@ import requests#匯入requests模組
 # print(r.text)
 
 #取得回應內容的Cookie資料
-seeion = requests.session()
-reponse = seeion.get("https://www.google.com/")
-v = seeion.cookies.get_dict()
-print(v)
+# seeion = requests.session()
+# reponse = seeion.get("https://www.google.com/")
+# v = reponse.cookies.get_dict()
+# print(v)
+
+#送出RESTful API的請求HTTP請求
+# url = "https://data.epa.gov.tw/api/v2/aqx_p_432?api_key=e8dd42e6-9b8b-43f8-991e-b3dee723a52d&limit=1000&sort=ImportDate desc&format=JSON"
+
+# url_params = {
+#             "id": "sitename",
+#             "type": "text",
+#             "info": {
+#                 "label": "測站名稱"
+#             }
+#         }#API讀取資料進來
+# r = requests.get(url,params=url_params)#GET請求
+# print(r.json())#讀取JSON資料
+
+#使用timeout參數請求時間
+
+# try: 
+#     r = requests.get("https://www.google.com/" ,timeout=0.03)#timeout屬性讀取0.03秒
+#     print(r.text)
+
+# except requests.exceptions.Timeout as ex:
+#     print("錯誤: HTTP請求已經超過時間...\n" + str(ex))
+
+
+#requests的例外處理
+try:
+    r = requests.get("https://www.google.com/404")
+    r.raise_for_status()
+
+except requests.exceptions.RequestException as ex1:
+    print("Http 請求錯誤: " + str(ex1))
+except requests.exceptions.HTTPError as ex2:
+    print("Http 回應錯誤: " + str(ex2))
+except requests.exceptions.ConnectionError as ex3:
+    print("Http 網路連線錯誤: " + str(ex3))
+except requests.exceptions.Timeout as ex4:
+    print("Timeout時間錯誤: " + str(ex4))
 
 
