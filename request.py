@@ -92,17 +92,23 @@ import requests#匯入requests模組
 
 
 #requests的例外處理
-try:
-    r = requests.get("https://www.google.com/404")
-    r.raise_for_status()
+# try:
+#     r = requests.get("https://www.google.com/404")
+#     r.raise_for_status()
 
-except requests.exceptions.RequestException as ex1:
-    print("Http 請求錯誤: " + str(ex1))
-except requests.exceptions.HTTPError as ex2:
-    print("Http 回應錯誤: " + str(ex2))
-except requests.exceptions.ConnectionError as ex3:
-    print("Http 網路連線錯誤: " + str(ex3))
-except requests.exceptions.Timeout as ex4:
-    print("Timeout時間錯誤: " + str(ex4))
+# except requests.exceptions.RequestException as ex1:
+#     print("Http 請求錯誤: " + str(ex1))
+# except requests.exceptions.HTTPError as ex2:
+#     print("Http 回應錯誤: " + str(ex2))
+# except requests.exceptions.ConnectionError as ex3:
+#     print("Http 網路連線錯誤: " + str(ex3))
+# except requests.exceptions.Timeout as ex4:
+#     print("Timeout時間錯誤: " + str(ex4))
+
+url = "https://www.ptt.cc/bbs/Gossiping/index.html"
+headers = {'user-agent': 'Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/63.0.3239.132 Safari/537.36'}
+cookies = { "over18": "1" }
+r = requests.get(url, cookies=cookies, headers=headers)
+print(r.text)
 
 
